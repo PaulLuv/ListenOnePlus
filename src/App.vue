@@ -1,31 +1,36 @@
-<script>
-export default {
-  created () {
-    // 调用API从本地缓存中获取数据
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    console.log('app created and cache logs by setStorageSync')
-  }
-}
+<script lang="ts" src="./app.ts">
 </script>
+<style lang="less">
+@import "weui/weui.less";
+@import "styles.less";
 
-<style>
-.container {
+page,
+.page,
+.page__bd {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
 }
-/* this rule will be remove */
-* {
-  transition: width 2s;
-  -moz-transition: width 2s;
-  -webkit-transition: width 2s;
-  -o-transition: width 2s;
+page {
+  background: #efeff4;
+}
+.page {
+  background: #efeff4;
+}
+.page__bd {
+  padding-bottom: 0;
+}
+view[hidden] {
+  visibility: hidden;
+}
+
+.mini {
+  font-size: 12px;
+  line-height: 2.1em;
+  padding: 0 1em;
+}
+
+.nav-button {
+  color: @nav;
+  font-size: 17px;
+  padding: 0 1em;
 }
 </style>

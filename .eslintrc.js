@@ -24,14 +24,17 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    semi: 0,
+    quotes: 0,
+    "space-before-function-paren": 0
   },
   globals: {
     App: true,
     Page: true,
     wx: true,
+    mpc:true,
     getApp: true,
     getPage: true,
-    requirePlugin: true
   }
 }
