@@ -1,6 +1,6 @@
-# mpvue-starter
+# listenoneplus
 
-小程序开发最佳实践的起始框架
+Listen one mini program. base on mpvue-starter
 
 ## Build Setup
 
