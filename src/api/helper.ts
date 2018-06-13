@@ -84,13 +84,15 @@ export function apiRequest<R>(req: ApiRequestOptions): Promise<R>{
             logbox.info(`[DONE][${reqName}][${method}][${req.url}] ${resp.statusCode} `);
             if(resp.statusCode == 200){
                 const r = (resp.data as any) as R;
+                logbox.info("请求成功 header" + resp.header + " data" + resp.data)
                 resolve(r);
             }else{
                 const handler = globalApiHttpErrorHandlers[resp.statusCode];
                 if(handler && typeof handler === "function"){
                     handler();
                 }
-                reject("请求出差 " + resp.statusCode);
+                reject("请求出错 " + resp.statusCode);
+                logbox.info("请求出错" + resp.data)
             }
         };
         req.fail = () => {
