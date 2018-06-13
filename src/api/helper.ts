@@ -3,16 +3,17 @@ import { SeverType } from "@/api";
 
 export const defaultPageSize = 20;
 
-let _tokenNetease: String | null = null;
-let _tokenXiami: String | null = null;
-let _tokenKugou: String | null = null;
-let _tokenQQ: String | null = null;
+let _token: string | null = null;
+let _tokenNetease: string | null = null;
+let _tokenXiami: string | null = null;
+let _tokenKugou: string | null = null;
+let _tokenQQ: string | null = null;
 
 export interface UserAuthState{
     /**
     * Token 值
     */
-    token: String | null;
+    token: string | null;
     /**
      * token 是否已经过期？
      */
@@ -22,6 +23,27 @@ export interface UserAuthState{
      */
     isTokenWillExp: boolean;
 }
+
+export function getUserAuthState(): UserAuthState {
+    let token: string | null = null;
+    let isTokenExp = true;
+    let isTokenWillExp = true;
+
+    // const auth: AuthUser = getAuthUser() as AuthUser;
+    // if (auth) {
+    //   const timestamp = new Date().getTime() / 1000;
+    //   if (auth.tokenExp - 600 > timestamp) {
+    //     isTokenExp = false;
+    //     token = auth.token;
+    //     if (auth.tokenExp - 8600 > timestamp) {
+    //       isTokenWillExp = false;
+    //     } else {
+    //       logbox.info("Token will exp");
+    //     }
+    //   }
+    // }
+    return { token, isTokenExp, isTokenWillExp};
+  }
 
 export function getUserAutoState(type = SeverType.netease): UserAuthState{
     let token: string | null = null;
@@ -35,7 +57,22 @@ export interface ApiRequestOptions extends wx.RequestOptions {
      * 请求名称
      */
     reqName?: string;
+    /**
+     * 请求头
+     */
+    header?: {}
 }
+
+export function getAuthorization(): string | null {
+    if (!_token) {
+      const state = getUserAuthState();
+      _token = state.token;
+    }
+    if (!_token) {
+      logbox.error("Token is null");
+    }
+    return _token;
+  }
 
 export const globalApiHttpErrorHandlers = {};
 

@@ -3,15 +3,17 @@ import * as store from "@/store";
 import eventBus from "@/eventBus";
 import * as mpex from "@/mpex";
 import * as logbox from "@/logbox";
+import { getLyric,Netease } from '@/api';
 
 // 必须使用装饰器的方式来指定component
 @Component({
   components: {
-  
+
   }
 })
 class Index extends Vue implements mp.VueLifecycle, mp.PageLifecycle {
   songList = [];
+  lyric: {};
   items = [
     { name: "USA", value: "美国", checked: false },
     { name: "CHN", value: "中国", checked: true },
@@ -26,10 +28,12 @@ class Index extends Vue implements mp.VueLifecycle, mp.PageLifecycle {
   }
 
   async loadData(){
+    let netease = new Netease()
     try{
-      // const resp = await getShow();
+      const lyric = await netease.getLyric(347230);
+      logbox.info(lyric + "")
       // if(resp.code == 0 && resp.data){
-      //   this.songList = resp.data
+      //   this.lyric = resp.data
       // }else{
       //   mpex.confirm(resp.message);
       // }
