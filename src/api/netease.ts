@@ -4,7 +4,6 @@ import { ApiRequestOptions, apiRequest } from '@/api/helper';
 
 export class Netease implements Music{
   constructor (){
-
   }
   /**
    * 热门推荐

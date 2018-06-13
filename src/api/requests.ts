@@ -23,15 +23,27 @@ export function getLyric(
     id: Number
 ): Promise<GetLyricResponse>{
 
-    const url = 'http://music.163.com/weapi/song/lyric?os=osx&id=347230&lv=-1&kv=-1&tv=-1'
-    const options: ApiRequestOptions = {
-        url,
-        method: "POST",
-        reqName: ""
-    };
-    options.header = {
-        Authorization: getAuthorization() || ""
-    };
-
+  const target_url = 'http://music.163.com/weapi/song/lyric?csrf_token=';
+  const method = 'GET';
+  const data = {
+    'id': id,
+    'lv': -1,
+    'tv': -1,
+    'csrf_token': '',
+  };
+  const cookie = "";
+  const header = {
+    Accept: "*/*",
+    "Accept-Language": "zh-CN,zh;q=0.8,gl;q=0.6,zh-TW;q=0.4",
+    "Content-Type": "application/x-www-form-urlencoded",
+    Cookie: cookie,
+  };
+  // let data = this._encrypted_request(d);
+  const options: ApiRequestOptions = {
+    url: target_url,
+    method: method,
+    data: data,
+    header: header
+  }
     return apiRequest<GetLyricResponse>(options);
 }

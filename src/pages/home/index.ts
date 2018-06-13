@@ -28,17 +28,18 @@ class Index extends Vue implements mp.VueLifecycle, mp.PageLifecycle {
   }
 
   async loadData(){
-    let netease = new Netease()
     try{
-      const lyric = await netease.getLyric(347230);
-      logbox.info(lyric + "")
-      // if(resp.code == 0 && resp.data){
-      //   this.lyric = resp.data
-      // }else{
-      //   mpex.confirm(resp.message);
-      // }
+      const resp = await getLyric(347230);
+      if(resp.code == 0 && resp.data){
+        this.lyric = resp.data
+        logbox.info("请求成功" + this.lyric)
+      }else{
+        mpex.confirm(resp.message);
+        logbox.info("请求失败" + this.lyric)
+      }
     }catch(error){
-      mpex.confirm("请求出差");
+      mpex.confirm("请求出错");
+      logbox.info("请求出错" + this.lyric)
     }
   }
   onShow() {
