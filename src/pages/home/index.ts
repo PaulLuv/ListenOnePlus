@@ -3,17 +3,20 @@ import * as store from "@/store";
 import eventBus from "@/eventBus";
 import * as mpex from "@/mpex";
 import * as logbox from "@/logbox";
-import { getLyric,Netease } from '@/api';
+import { getLyric, Netease } from "@/api";
 
 // 必须使用装饰器的方式来指定component
 @Component({
-  components: {
-
-  }
+  components: {}
 })
 class Index extends Vue implements mp.VueLifecycle, mp.PageLifecycle {
   songList = [];
   lyric: {};
+  todos: [
+    { text: "Learn JavaScript" },
+    { text: "Learn Vue" },
+    { text: "Build something awesome" }
+  ];
   items = [
     { name: "USA", value: "美国", checked: false },
     { name: "CHN", value: "中国", checked: true },
@@ -23,23 +26,23 @@ class Index extends Vue implements mp.VueLifecycle, mp.PageLifecycle {
     { name: "TUR", value: "法国", checked: false }
   ];
 
-  onLoad(options){
-    this.loadData();
+  onLoad(options) {
+    // this.loadData();
   }
 
-  async loadData(){
-    try{
+  async loadData() {
+    try {
       const resp = await getLyric(347230);
-      if(resp.code == 0 && resp.data){
-        this.lyric = resp.data
-        logbox.info("请求成功" + this.lyric)
-      }else{
+      if (resp.code == 0 && resp.data) {
+        this.lyric = resp.data;
+        logbox.info("请求成功" + this.lyric);
+      } else {
         mpex.confirm(resp.message);
-        logbox.info("请求失败" + this.lyric)
+        logbox.info("请求失败" + this.lyric);
       }
-    }catch(error){
+    } catch (error) {
       mpex.confirm("请求出错");
-      logbox.info("请求出错" + this.lyric)
+      logbox.info("请求出错" + this.lyric);
     }
   }
   onShow() {
